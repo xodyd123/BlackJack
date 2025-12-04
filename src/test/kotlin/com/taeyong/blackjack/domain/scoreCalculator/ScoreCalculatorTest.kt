@@ -2,6 +2,7 @@ package com.taeyong.blackjack.domain.scoreCalculator
 
 import com.taeyong.blackjack.domain.card.Card
 import com.taeyong.blackjack.domain.card.Rank
+import com.taeyong.blackjack.domain.card.Suit
 import com.taeyong.blackjack.domain.score.ScoreCalculator
 import org.junit.jupiter.api.DisplayName
 import kotlin.test.Test
@@ -13,7 +14,7 @@ class ScoreCalculatorTest {
     fun `숫자 카드 2는 2점으로 점수 계산한다`(){
         val calculator = ScoreCalculator()
 
-        val totalScore = calculator.calculate(listOf(Card(Rank.TWO)))
+        val totalScore = calculator.calculate(listOf(Card(Rank.TWO, Suit.CLUB)))
 
         assertEquals(2 , totalScore)
     }
@@ -22,7 +23,7 @@ class ScoreCalculatorTest {
     fun `J , Q , K 는 10점으로 점수 계산한다`(){
         val calculator = ScoreCalculator()
 
-        listOf(Card(Rank.J) , Card(Rank.K) , Card(Rank.Q)).forEach { card ->
+        listOf(Card(Rank.J, Suit.CLUB), Card(Rank.K, Suit.CLUB), Card(Rank.Q, Suit.CLUB)).forEach { card ->
             val score = calculator.calculate(listOf(card))
             assertEquals(10 , score)
         }
@@ -34,7 +35,7 @@ class ScoreCalculatorTest {
         val calculator = ScoreCalculator()
 
         val totalScore = calculator.calculate(
-            listOf(Card(Rank.A), Card(Rank.J), Card(Rank.TEN))
+            listOf(Card(Rank.A, Suit.CLUB), Card(Rank.J, Suit.CLUB), Card(Rank.TEN, Suit.CLUB))
         )
 
         assertEquals(21 , totalScore)
@@ -46,7 +47,7 @@ class ScoreCalculatorTest {
         val calculator = ScoreCalculator()
 
         val totalScore = calculator.calculate(
-            listOf(Card(Rank.A), Card(Rank.FOUR), Card(Rank.SIX))
+            listOf(Card(Rank.A, Suit.CLUB), Card(Rank.FOUR, Suit.CLUB), Card(Rank.SIX, Suit.CLUB))
         )
 
         assertEquals(21, totalScore)
@@ -57,7 +58,7 @@ class ScoreCalculatorTest {
         val calculator = ScoreCalculator()
 
         val totalScore = calculator.calculate(
-            listOf(Card(Rank.TWO), Card(Rank.THREE), Card(Rank.FOUR))
+            listOf(Card(Rank.TWO, Suit.CLUB), Card(Rank.THREE, Suit.SPADE), Card(Rank.FOUR, Suit.SPADE))
         )
 
         assertEquals(9, totalScore)
@@ -68,7 +69,7 @@ class ScoreCalculatorTest {
         val calculator = ScoreCalculator()
 
         val totalScore = calculator.calculate(
-            listOf(Card(Rank.A), Card(Rank.A))   // 11 + 1 = 12
+            listOf(Card(Rank.A, Suit.CLUB), Card(Rank.A, Suit.CLUB))   // 11 + 1 = 12
         )
 
         assertEquals(12, totalScore)
@@ -79,7 +80,7 @@ class ScoreCalculatorTest {
         val calculator = ScoreCalculator()
 
         val totalScore = calculator.calculate(
-            listOf(Card(Rank.A), Card(Rank.A), Card(Rank.NINE))
+            listOf(Card(Rank.A, Suit.CLUB), Card(Rank.A, Suit.CLUB), Card(Rank.NINE, Suit.CLUB))
         )
 
         assertEquals(21, totalScore)
@@ -90,7 +91,7 @@ class ScoreCalculatorTest {
         val calculator = ScoreCalculator()
 
         val totalScore = calculator.calculate(
-            listOf(Card(Rank.TEN), Card(Rank.NINE), Card(Rank.THREE)) // 22
+            listOf(Card(Rank.TEN, Suit.CLUB), Card(Rank.NINE, Suit.CLUB), Card(Rank.THREE, Suit.CLUB)) // 22
         )
 
         assertEquals(22, totalScore)
@@ -101,7 +102,7 @@ class ScoreCalculatorTest {
         val calculator = ScoreCalculator()
 
         val totalScore = calculator.calculate(
-            listOf(Card(Rank.A), Card(Rank.A), Card(Rank.TEN))
+            listOf(Card(Rank.A, Suit.CLUB), Card(Rank.A, Suit.CLUB), Card(Rank.TEN, Suit.CLUB))
         )
 
         assertEquals(12, totalScore)
