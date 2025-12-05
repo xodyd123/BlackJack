@@ -26,7 +26,7 @@ class DealerTest {
     }
 
     @Test
-    fun `딜러는_점수_총합이_21점__미만이면_Bust이다`() {
+    fun `딜러는_점수_총합이_21점_미만이면_Bust가 아니다`() {
         val dealer = Dealer(Hand(ScoreCalculator()))
         val card1 = Card(Rank.K, Suit.SPADE)
         val card2 = Card(Rank.J, Suit.SPADE)
@@ -37,10 +37,31 @@ class DealerTest {
     }
 
     @Test
+    fun `딜러는_점수_총합이_정확히_21점이면_Bust가_아니다`() {
+        val dealer = Dealer(Hand(ScoreCalculator()))
+        dealer.receive(Card(Rank.K, Suit.SPADE))
+        dealer.receive(Card(Rank.A, Suit.HEART))
+
+        assertFalse(dealer.isBust)
+    }
+
+
+    @Test
     fun `딜러의 점수 총합이 17점 이상이면 카드를 받지 않는다`() {
         val dealer = Dealer(Hand(ScoreCalculator()))
         val card1 = Card(Rank.K, Suit.SPADE)
         val card2 = Card(Rank.J, Suit.SPADE)
+        dealer.receive(card1)
+        dealer.receive(card2)
+
+        assertFalse { dealer.shouldHit }
+    }
+
+    @Test
+    fun `딜러의 점수 총합이 정확히 17점 이면 카드를 받지 않는다`() {
+        val dealer = Dealer(Hand(ScoreCalculator()))
+        val card1 = Card(Rank.K, Suit.SPADE)
+        val card2 = Card(Rank.SEVEN, Suit.SPADE)
         dealer.receive(card1)
         dealer.receive(card2)
 
