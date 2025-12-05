@@ -17,6 +17,9 @@ class Hand(private val calculator: ScoreCalculator) {
     val size: Int
         get() = _cards.size
 
+    val isBust: Boolean
+        get() = score > BUST_LIMIT
+
     fun add(card: Card) {
         _cards.add(card)
     }
@@ -25,8 +28,5 @@ class Hand(private val calculator: ScoreCalculator) {
         return _cards.contains(card)
     }
 
-    fun isBusted(): Boolean {
-        return score > BUST_LIMIT
-    }
 
 }

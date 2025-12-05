@@ -44,7 +44,7 @@ class HandTest {
         hand.add(card3)
 
         assertEquals(22, hand.score)
-        assertTrue { hand.isBusted() }
+        assertTrue { hand.isBust }
 
     }
 
@@ -59,7 +59,7 @@ class HandTest {
 
 
         assertEquals(20, hand.score)
-        assertFalse { hand.isBusted() }
+        assertFalse { hand.isBust }
 
     }
 
