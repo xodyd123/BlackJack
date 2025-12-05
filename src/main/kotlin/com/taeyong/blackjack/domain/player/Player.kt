@@ -8,6 +8,9 @@ class Player(private val hand: Hand) {
     val score: Int
         get() = hand.score
 
+    val isBust: Boolean
+        get() = hand.isBust
+
     fun receive(card: Card) {
         hand.add(card)
     }

@@ -7,6 +7,7 @@ import com.taeyong.blackjack.domain.hand.Hand
 import com.taeyong.blackjack.domain.score.ScoreCalculator
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class PlayerTest {
@@ -34,5 +35,32 @@ class PlayerTest {
         player.receive(card2)
 
         assertEquals(6, player.score)
+    }
+
+    @Test
+    fun `플레이어는_점수_총합이_21점을_초과하면_Bust이다`() {
+        val hand = Hand(ScoreCalculator())
+        val player = Player(hand)
+        val card1 = Card(Rank.J, Suit.SPADE)
+        val card2 = Card(Rank.K, Suit.SPADE)
+        val card3 = Card(Rank.TWO, Suit.SPADE)
+        player.receive(card1)
+        player.receive(card2)
+        player.receive(card3)
+
+        assertTrue { player.isBust }
+    }
+
+    @Test
+    fun `플레이어는_점수_총합이_21점_이하면_Bust가 아니다`() {
+        val hand = Hand(ScoreCalculator())
+        val player = Player(hand)
+        val card1 = Card(Rank.J, Suit.SPADE)
+        val card2 = Card(Rank.K, Suit.SPADE)
+        player.receive(card1)
+        player.receive(card2)
+
+
+        assertFalse { player.isBust }
     }
 }
