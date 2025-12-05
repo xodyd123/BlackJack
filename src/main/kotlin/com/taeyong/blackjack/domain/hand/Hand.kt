@@ -7,6 +7,10 @@ class Hand(private val calculator: ScoreCalculator) {
 
     private val _cards = mutableListOf<Card>()
 
+    companion object {
+        private const val BUST_LIMIT = 21
+    }
+
     val score: Int
         get() = calculator.calculate(_cards)
 
@@ -19,6 +23,10 @@ class Hand(private val calculator: ScoreCalculator) {
 
     fun contains(card: Card): Boolean {
         return _cards.contains(card)
+    }
+
+    fun isBusted(): Boolean {
+        return score > BUST_LIMIT
     }
 
 }
