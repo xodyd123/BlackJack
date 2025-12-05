@@ -15,7 +15,7 @@ class HandTest {
         val hand = Hand(ScoreCalculator())
         val card = Card(Rank.TWO, Suit.SPADE)
         hand.add(card)
-        assertEquals(1, hand.size())
+        assertEquals(1, hand.size)
         assertTrue(hand.contains(card))
 
     }
@@ -28,7 +28,7 @@ class HandTest {
         hand.add(card1)
         hand.add(card2)
 
-        assertEquals(6, hand.score())
+        assertEquals(6, hand.score)
 
     }
 

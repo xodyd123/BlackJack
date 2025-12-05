@@ -5,21 +5,20 @@ import com.taeyong.blackjack.domain.score.ScoreCalculator
 
 class Hand(private val calculator: ScoreCalculator) {
 
-    private val cards = mutableListOf<Card>()
+    private val _cards = mutableListOf<Card>()
+
+    val score: Int
+        get() = calculator.calculate(_cards)
+
+    val size: Int
+        get() = _cards.size
 
     fun add(card: Card) {
-        cards.add(card)
-    }
-
-    fun size(): Int {
-        return cards.size
+        _cards.add(card)
     }
 
     fun contains(card: Card): Boolean {
-        return cards.contains(card)
+        return _cards.contains(card)
     }
 
-    fun score(): Int {
-        return calculator.calculate(cards)
-    }
 }
