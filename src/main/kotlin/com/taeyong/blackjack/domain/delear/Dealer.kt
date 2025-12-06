@@ -1,6 +1,7 @@
 package com.taeyong.blackjack.domain.delear
 
 import com.taeyong.blackjack.domain.card.Card
+import com.taeyong.blackjack.domain.deck.Deck
 import com.taeyong.blackjack.domain.hand.Hand
 
 class Dealer(private val hand: Hand) {
@@ -17,6 +18,12 @@ class Dealer(private val hand: Hand) {
 
     fun receive(card: Card) {
         hand.add(card)
+    }
+
+    fun playTurn(deck: Deck) {
+        if (!shouldHit) return
+
+        receive(deck.draw())
     }
 
 }
