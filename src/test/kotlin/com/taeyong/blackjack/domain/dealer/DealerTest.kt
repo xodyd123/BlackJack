@@ -100,4 +100,26 @@ class DealerTest {
         assertEquals(beforeSize, hand.size)
         assertEquals(0, fakeDeck.drawCount)
     }
+
+    @Test
+    fun `딜러는_점수_총합이_17점_미만이면_playTurn_동안_자동으로_카드를_받는다`() {
+        val hand = Hand(ScoreCalculator())
+        val dealer = Dealer(hand)
+
+        dealer.receive(Card(Rank.K, Suit.SPADE))
+        dealer.receive(Card(Rank.SIX, Suit.HEART))
+
+        val fakeDeck = FakeDeck(
+            listOf(
+                Card(Rank.TWO, Suit.CLUB),
+            )
+        )
+        dealer.playTurn(fakeDeck)
+
+        assertEquals(3, hand.size)
+        assertEquals(18, hand.score)
+        assertEquals(1, fakeDeck.drawCount)
+
+    }
+
 }

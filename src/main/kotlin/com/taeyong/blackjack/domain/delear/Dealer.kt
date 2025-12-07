@@ -21,9 +21,9 @@ class Dealer(private val hand: Hand) {
     }
 
     fun playTurn(deck: Deck) {
-        if (!shouldHit) return
-
-        receive(deck.draw())
+        while (shouldHit) {
+            receive(deck.draw())
+        }
     }
 
 }
