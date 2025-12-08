@@ -1,4 +1,4 @@
-package com.taeyong.blackjack.domain.delear
+package com.taeyong.blackjack.domain.dealear
 
 import com.taeyong.blackjack.domain.card.Card
 import com.taeyong.blackjack.domain.deck.Deck
@@ -15,6 +15,9 @@ class Dealer(private val hand: Hand) {
 
     val isBust: Boolean
         get() = hand.isBust
+
+    val score: Int
+        get() = hand.score
 
     val shouldHit: Boolean
         get() = DEALER_STAND_SCORE > hand.score

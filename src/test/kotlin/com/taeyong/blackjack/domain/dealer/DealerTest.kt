@@ -4,7 +4,7 @@ import com.taeyong.blackjack.domain.card.Card
 import com.taeyong.blackjack.domain.card.Rank
 import com.taeyong.blackjack.domain.card.Suit
 import com.taeyong.blackjack.domain.deck.FakeDeck
-import com.taeyong.blackjack.domain.delear.Dealer
+import com.taeyong.blackjack.domain.dealear.Dealer
 import com.taeyong.blackjack.domain.hand.Hand
 import com.taeyong.blackjack.domain.score.ScoreCalculator
 import org.junit.jupiter.api.Assertions.assertEquals
