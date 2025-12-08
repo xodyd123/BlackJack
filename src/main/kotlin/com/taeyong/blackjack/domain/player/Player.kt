@@ -12,6 +12,9 @@ class Player(private val hand: Hand) {
     val isBust: Boolean
         get() = hand.isBust
 
+    val size: Int
+        get() = hand.size
+
     fun receive(card: Card) {
         hand.add(card)
     }

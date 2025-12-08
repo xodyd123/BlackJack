@@ -10,6 +10,9 @@ class Dealer(private val hand: Hand) {
         private const val DEALER_STAND_SCORE = 17
     }
 
+    val size: Int
+        get() = hand.size
+
     val isBust: Boolean
         get() = hand.isBust
 
