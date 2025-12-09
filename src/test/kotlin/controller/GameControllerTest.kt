@@ -13,8 +13,8 @@ import com.taeyong.blackjack.domain.player.Player
 import com.taeyong.blackjack.domain.score.ScoreCalculator
 import org.junit.jupiter.api.Assertions.assertTrue
 import com.taeyong.blackjack.view.FakeOutView
+import com.taeyong.blackjack.view.mapper.PlayerViewMapper
 import kotlin.test.Test
-import kotlin.test.assertEquals
 
 
 class GameControllerTest {
@@ -27,8 +27,8 @@ class GameControllerTest {
         val player = Player(Hand(scoreCalculator))
         val dealer = Dealer(Hand(scoreCalculator))
         val deck = RandomDeck()
-        val game = Game(player, dealer, deck)
-        val controller = GameController(fakeOutView, game)
+        val game = Game(deck)
+        val controller = GameController(fakeOutView, game, PlayerViewMapper(scoreCalculator), player, dealer)
         controller.run()
         assertTrue { promptMessages.contains("블랙잭 게임을 시작합니다.")}
     }
@@ -48,8 +48,8 @@ class GameControllerTest {
                 Card(Rank.Q, Suit.SPADE)
             )
         )
-        val game = Game(player, dealer, deck)
-        val controller = GameController(fakeOutView, game)
+        val game = Game(deck)
+        val controller = GameController(fakeOutView, game, PlayerViewMapper(scoreCalculator), player, dealer)
         controller.run()
         assertTrue(promptMessages.contains("플레이어 카드: [10, 10] - 현재점수: 20"))
     }

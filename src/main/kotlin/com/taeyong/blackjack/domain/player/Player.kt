@@ -3,6 +3,7 @@ package com.taeyong.blackjack.domain.player
 import com.taeyong.blackjack.domain.card.Card
 import com.taeyong.blackjack.domain.deck.Deck
 import com.taeyong.blackjack.domain.hand.Hand
+import com.taeyong.blackjack.view.dto.PlayerDto
 
 class Player(private val hand: Hand) {
 
@@ -14,6 +15,9 @@ class Player(private val hand: Hand) {
 
     val size: Int
         get() = hand.size
+
+    val cards: List<Card>
+        get() = hand.cardsSnapshot
 
     fun receive(card: Card) {
         hand.add(card)

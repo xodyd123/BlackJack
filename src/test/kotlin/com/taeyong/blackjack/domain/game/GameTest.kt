@@ -22,8 +22,8 @@ class GameTest {
         val scoreCalculator = ScoreCalculator()
         val player = Player(Hand(scoreCalculator))
         val dealer = Dealer(Hand(scoreCalculator))
-        val game = Game(player, dealer, RandomDeck())
-        game.start()
+        val game = Game(RandomDeck())
+        game.dealInitialCards(player, dealer)
 
         assertEquals(2, dealer.size)
         assertEquals(2, player.size)
@@ -36,8 +36,8 @@ class GameTest {
         val dealerHand = Hand(scoreCalculator)
         val dealer = Dealer(dealerHand)
         val deck = FakeDeck(listOf(Card(Rank.K, Suit.SPADE), Card(Rank.J, Suit.HEART)))
-        val game = Game(player, dealer, deck)
-        game.playDealerTurn()
+        val game = Game(deck)
+        game.playDealerTurn(dealer)
 
         assertEquals(2, dealerHand.size)
         assertEquals(20, dealerHand.score)
@@ -52,10 +52,9 @@ class GameTest {
         val playerHand = Hand(scoreCalculator)
         val player = Player(playerHand)
         val dealerHand = Hand(scoreCalculator)
-        val dealer = Dealer(dealerHand)
         val deck = FakeDeck(listOf(Card(Rank.K, Suit.SPADE), Card(Rank.J, Suit.HEART)))
-        val game = Game(player, dealer, deck)
-        game.playPlayerTurn()
+        val game = Game(deck)
+        game.playPlayerTurn(player)
 
         assertEquals(1, playerHand.size)
         assertEquals(10, playerHand.score)
@@ -71,12 +70,12 @@ class GameTest {
         val dealerHand = Hand(scoreCalculator)
         val dealer = Dealer(dealerHand)
         val deck = FakeDeck(listOf(Card(Rank.K, Suit.SPADE), Card(Rank.J, Suit.HEART), Card(Rank.TWO , Suit.SPADE)))
-        val game = Game(player, dealer, deck)
+        val game = Game(deck)
 
-        game.playPlayerTurn()
-        game.playPlayerTurn()
-        game.playPlayerTurn()
-        val result = game.gameResult()
+        game.playPlayerTurn(player)
+        game.playPlayerTurn(player)
+        game.playPlayerTurn(player)
+        val result = game.judge(player, dealer)
 
         assertTrue { player.isBust }
         assertEquals(3, playerHand.size)
@@ -95,10 +94,10 @@ class GameTest {
         val dealerHand = Hand(scoreCalculator)
         val dealer = Dealer(dealerHand)
         val deck = FakeDeck(listOf(Card(Rank.K, Suit.SPADE), Card(Rank.SIX, Suit.HEART), Card(Rank.SIX, Suit.SPADE)))
-        val game = Game(player, dealer, deck)
+        val game = Game(deck)
 
-        game.playDealerTurn()
-        val result = game.gameResult()
+        game.playDealerTurn(dealer)
+        val result = game.judge(player, dealer)
 
         assertTrue { dealer.isBust }
         assertEquals(3, dealerHand.size)
@@ -125,12 +124,12 @@ class GameTest {
                 Card(Rank.THREE, Suit.SPADE)
             )
         )
-        val game = Game(player, dealer, deck)
+        val game = Game(deck)
 
-        game.playPlayerTurn()
-        game.playPlayerTurn()
-        game.playDealerTurn()
-        val result = game.gameResult()
+        game.playPlayerTurn(player)
+        game.playPlayerTurn(player)
+        game.playDealerTurn(dealer)
+        val result = game.judge(player, dealer)
 
         assertFalse { player.isBust }
         assertFalse { dealer.isBust }
@@ -160,12 +159,12 @@ class GameTest {
                 Card(Rank.FOUR, Suit.SPADE)
             )
         )
-        val game = Game(player, dealer, deck)
+        val game = Game(deck)
 
-        game.playPlayerTurn()
-        game.playPlayerTurn()
-        game.playDealerTurn()
-        val result = game.gameResult()
+        game.playPlayerTurn(player)
+        game.playPlayerTurn(player)
+        game.playDealerTurn(dealer)
+        val result = game.judge(player,dealer)
 
         assertFalse { player.isBust }
         assertFalse { dealer.isBust }
@@ -195,12 +194,12 @@ class GameTest {
                 Card(Rank.THREE, Suit.SPADE)
             )
         )
-        val game = Game(player, dealer, deck)
+        val game = Game(deck)
 
-        game.playPlayerTurn()
-        game.playPlayerTurn()
-        game.playDealerTurn()
-        val result = game.gameResult()
+        game.playPlayerTurn(player)
+        game.playPlayerTurn(player)
+        game.playDealerTurn(dealer)
+        val result = game.judge(player, dealer)
 
         assertFalse { player.isBust }
         assertFalse { dealer.isBust }

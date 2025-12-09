@@ -1,17 +1,15 @@
 package com.taeyong.blackjack.domain.game
 
-import com.taeyong.blackjack.domain.deck.Deck
 import com.taeyong.blackjack.domain.dealear.Dealer
+import com.taeyong.blackjack.domain.deck.Deck
 import com.taeyong.blackjack.domain.player.Player
-import com.taeyong.blackjack.domain.player.PlayerDto
+import com.taeyong.blackjack.view.dto.PlayerDto
 
 class Game(
-    private val player: Player,
-    private val dealer: Dealer,
     private val deck: Deck
 ) {
 
-    fun start(): PlayerDto {
+    fun dealInitialCards(player: Player, dealer: Dealer): PlayerDto {
         repeat(2) {
             player.receive(deck.draw())
             dealer.receive(deck.draw())
@@ -19,15 +17,15 @@ class Game(
         return player.cardResultDto()
     }
 
-    fun playDealerTurn() {
+    fun playDealerTurn(dealer: Dealer) {
         dealer.playTurn(deck)
     }
 
-    fun playPlayerTurn() {
+    fun playPlayerTurn(player: Player) {
         player.hit(deck)
     }
 
-    fun gameResult(): GameResult {
+    fun judge(player: Player, dealer: Dealer): GameResult {
         return when {
             player.isBust -> GameResult(Winner.DEALER, EndReason.PLAYER_BUST)
             dealer.isBust -> GameResult(Winner.PLAYER, EndReason.DEALER_BUST)

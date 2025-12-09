@@ -1,6 +1,6 @@
 package com.taeyong.blackjack.view
 
-import com.taeyong.blackjack.domain.player.PlayerDto
+import com.taeyong.blackjack.view.dto.PlayerDto
 
 class FakeOutView(val promptMessages: MutableList<String>) : OutView {
 
