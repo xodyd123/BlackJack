@@ -3,6 +3,7 @@ package com.taeyong.blackjack.domain.game
 import com.taeyong.blackjack.domain.deck.Deck
 import com.taeyong.blackjack.domain.dealear.Dealer
 import com.taeyong.blackjack.domain.player.Player
+import com.taeyong.blackjack.domain.player.PlayerDto
 
 class Game(
     private val player: Player,
@@ -10,12 +11,12 @@ class Game(
     private val deck: Deck
 ) {
 
-    fun start() {
-        for (i in 0 until 2) {
+    fun start(): PlayerDto {
+        repeat(2) {
             player.receive(deck.draw())
             dealer.receive(deck.draw())
         }
-
+        return player.cardResultDto()
     }
 
     fun playDealerTurn() {

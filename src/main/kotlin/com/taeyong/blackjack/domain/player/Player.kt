@@ -19,8 +19,12 @@ class Player(private val hand: Hand) {
         hand.add(card)
     }
 
-    fun hit(deck: Deck){
+    fun hit(deck: Deck) {
         hand.add(deck.draw())
+    }
+
+    fun cardResultDto(): PlayerDto {
+        return hand.cardResultDto()
     }
 
 

@@ -1,6 +1,7 @@
 package com.taeyong.blackjack.domain.hand
 
 import com.taeyong.blackjack.domain.card.Card
+import com.taeyong.blackjack.domain.player.PlayerDto
 import com.taeyong.blackjack.domain.score.ScoreCalculator
 
 class Hand(private val calculator: ScoreCalculator) {
@@ -8,7 +9,7 @@ class Hand(private val calculator: ScoreCalculator) {
     private val _cards = mutableListOf<Card>()
 
     companion object {
-        private const val BUST_LIMIT = 21
+        const val BUST_LIMIT = 21
     }
 
     val score: Int
@@ -26,6 +27,12 @@ class Hand(private val calculator: ScoreCalculator) {
 
     fun contains(card: Card): Boolean {
         return _cards.contains(card)
+    }
+
+    fun cardResultDto(): PlayerDto {
+        val cardNumbers = _cards.map { card -> calculator.baseScoreIgnoringAce(card.rank) }
+        return PlayerDto(score, cardNumbers)
+
     }
 
 
