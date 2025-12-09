@@ -22,6 +22,9 @@ class Dealer(private val hand: Hand) {
     val shouldHit: Boolean
         get() = DEALER_STAND_SCORE > hand.score
 
+    val cards: List<Card>
+        get() = hand.cardsSnapshot
+
     fun receive(card: Card) {
         hand.add(card)
     }

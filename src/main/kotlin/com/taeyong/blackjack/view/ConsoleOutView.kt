@@ -1,6 +1,6 @@
 package com.taeyong.blackjack.view
 
-import com.taeyong.blackjack.view.dto.PlayerDto
+import com.taeyong.blackjack.view.dto.ParticipantDto
 
 object ConsoleOutView : OutView {
 
@@ -10,8 +10,13 @@ object ConsoleOutView : OutView {
         TODO("Not yet implemented")
     }
 
-    override fun playerCardResult(playerDto: PlayerDto) {
+    override fun playerCardResult(participantDto: ParticipantDto) {
         TODO("Not yet implemented")
     }
+
+    override fun dealerCardResult(participantDto: ParticipantDto) {
+        TODO("Not yet implemented")
+    }
+
 
 }

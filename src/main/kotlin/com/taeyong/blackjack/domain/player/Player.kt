@@ -3,7 +3,6 @@ package com.taeyong.blackjack.domain.player
 import com.taeyong.blackjack.domain.card.Card
 import com.taeyong.blackjack.domain.deck.Deck
 import com.taeyong.blackjack.domain.hand.Hand
-import com.taeyong.blackjack.view.dto.PlayerDto
 
 class Player(private val hand: Hand) {
 

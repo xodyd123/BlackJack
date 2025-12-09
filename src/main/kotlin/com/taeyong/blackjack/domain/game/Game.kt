@@ -3,7 +3,6 @@ package com.taeyong.blackjack.domain.game
 import com.taeyong.blackjack.domain.dealear.Dealer
 import com.taeyong.blackjack.domain.deck.Deck
 import com.taeyong.blackjack.domain.player.Player
-import com.taeyong.blackjack.view.dto.PlayerDto
 
 class Game(
     private val deck: Deck
