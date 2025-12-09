@@ -32,11 +32,5 @@ class Hand(private val calculator: ScoreCalculator) {
         return _cards.contains(card)
     }
 
-    fun cardResultDto(): PlayerDto {
-        val cardNumbers = _cards.map { card -> calculator.baseScoreIgnoringAce(card.rank) }
-        return PlayerDto(score, cardNumbers)
-
-    }
-
 
 }
