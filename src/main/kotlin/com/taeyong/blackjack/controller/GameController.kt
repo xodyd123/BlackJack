@@ -13,11 +13,10 @@ class GameController(
     private val player: Player,
     private val dealer: Dealer
 ) {
-
     fun run() {
         outView.startPrompt()
-        val currentResult = game.dealInitialCards(player, dealer)
-        playerViewMapper.from(player)
+        game.dealInitialCards(player, dealer)
+        val currentResult = playerViewMapper.from(player)
         outView.playerCardResult(currentResult)
     }
 }

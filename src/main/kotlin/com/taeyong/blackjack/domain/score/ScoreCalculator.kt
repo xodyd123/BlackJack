@@ -10,7 +10,7 @@ class ScoreCalculator {
 
         val (aces, others) = cards.partition { it.rank == Rank.A }
 
-        var sum = others.sumOf { baseScoreIgnoringAce(it.rank) }
+        var sum = others.sumOf { it.rank.baseScoreIgnoringAce }
 
         sum += aces.size * 11
 
@@ -23,22 +23,5 @@ class ScoreCalculator {
         return sum
     }
 
-    fun baseScoreIgnoringAce(rank: Rank): Int =
-        when (rank) {
-            Rank.TWO -> 2
-            Rank.THREE -> 3
-            Rank.FOUR -> 4
-            Rank.FIVE -> 5
-            Rank.SIX -> 6
-            Rank.SEVEN -> 7
-            Rank.EIGHT -> 8
-            Rank.NINE -> 9
-            Rank.TEN,
-            Rank.J,
-            Rank.Q,
-            Rank.K -> 10
-
-            Rank.A -> 0
-        }
 
 }

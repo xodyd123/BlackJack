@@ -7,7 +7,7 @@ import com.taeyong.blackjack.view.dto.PlayerDto
 class PlayerViewMapper(private val scoreCalculator: ScoreCalculator) {
     fun from(player: Player): PlayerDto {
         val cardNumbers = player.cards.map { card ->
-            scoreCalculator.baseScoreIgnoringAce(card.rank)
+            card.rank.baseScoreIgnoringAce
         }
         return PlayerDto(player.score, cardNumbers)
     }

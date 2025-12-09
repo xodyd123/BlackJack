@@ -9,12 +9,11 @@ class Game(
     private val deck: Deck
 ) {
 
-    fun dealInitialCards(player: Player, dealer: Dealer): PlayerDto {
+    fun dealInitialCards(player: Player, dealer: Dealer) {
         repeat(2) {
             player.receive(deck.draw())
             dealer.receive(deck.draw())
         }
-        return player.cardResultDto()
     }
 
     fun playDealerTurn(dealer: Dealer) {

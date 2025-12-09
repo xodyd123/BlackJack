@@ -27,9 +27,5 @@ class Player(private val hand: Hand) {
         hand.add(deck.draw())
     }
 
-    fun cardResultDto(): PlayerDto {
-        return hand.cardResultDto()
-    }
-
 
 }
