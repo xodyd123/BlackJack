@@ -1,11 +1,16 @@
 package com.taeyong.blackjack.view
 
 import com.taeyong.blackjack.view.dto.ParticipantDto
+import com.taeyong.blackjack.view.OutView
 
 class FakeOutView(val promptMessages: MutableList<String>) : OutView {
 
     override fun startPrompt() {
         promptMessages.add("블랙잭 게임을 시작합니다.")
+    }
+
+    override fun receiveCardPrompt() {
+        TODO("Not yet implemented")
     }
 
     override fun playerCardResult(participantDto: ParticipantDto) {
