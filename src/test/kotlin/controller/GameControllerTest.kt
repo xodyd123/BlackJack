@@ -13,6 +13,7 @@ import com.taeyong.blackjack.domain.player.Player
 import com.taeyong.blackjack.domain.score.ScoreCalculator
 import org.junit.jupiter.api.Assertions.assertTrue
 import com.taeyong.blackjack.view.FakeOutView
+import com.taeyong.blackjack.view.InputView
 import com.taeyong.blackjack.view.mapper.ParticipantViewMapper
 import kotlin.test.Test
 
@@ -28,7 +29,10 @@ class GameControllerTest {
         val dealer = Dealer(Hand(scoreCalculator))
         val deck = RandomDeck()
         val game = Game(deck)
-        val controller = GameController(fakeOutView, game, ParticipantViewMapper(scoreCalculator), player, dealer)
+        val controller = GameController(
+            fakeOutView, game, ParticipantViewMapper(scoreCalculator), player, dealer,
+            InputView
+        )
         controller.run()
         assertTrue { promptMessages.contains("블랙잭 게임을 시작합니다.")}
     }
@@ -49,7 +53,10 @@ class GameControllerTest {
             )
         )
         val game = Game(deck)
-        val controller = GameController(fakeOutView, game, ParticipantViewMapper(scoreCalculator), player, dealer)
+        val controller = GameController(
+            fakeOutView, game, ParticipantViewMapper(scoreCalculator), player, dealer,
+            InputView
+        )
         controller.run()
         assertTrue(promptMessages.contains("플레이어 카드: [Q, J] - 현재점수: 20"))
     }
@@ -70,7 +77,10 @@ class GameControllerTest {
             )
         )
         val game = Game(deck)
-        val controller = GameController(fakeOutView, game, ParticipantViewMapper(scoreCalculator), player, dealer)
+        val controller = GameController(
+            fakeOutView, game, ParticipantViewMapper(scoreCalculator), player, dealer,
+            InputView
+        )
         controller.run()
         assertTrue(promptMessages.contains("딜러 카드: [K, ?]"))
     }

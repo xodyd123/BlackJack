@@ -11,6 +11,7 @@ import com.taeyong.blackjack.domain.hand.Hand
 import com.taeyong.blackjack.domain.player.Player
 import com.taeyong.blackjack.domain.score.ScoreCalculator
 import com.taeyong.blackjack.view.ConsoleOutView
+import com.taeyong.blackjack.view.InputView
 import com.taeyong.blackjack.view.mapper.ParticipantViewMapper
 
 fun main() {
@@ -28,8 +29,8 @@ fun main() {
         ConsoleOutView, game,
         ParticipantViewMapper(scoreCalculator),
         Player(Hand(scoreCalculator)),
-        Dealer(Hand(scoreCalculator))
-    )
+        Dealer(Hand(scoreCalculator)),
+        InputView)
     gameController.run()
 
 }
