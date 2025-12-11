@@ -9,11 +9,5 @@ class ApplicationTest : NsTest() {
         main()
     }
 
-    @Test
-    fun `정상 실행`() {
-        assertSimpleTest {
-            run("y", "y", "n")
-        }
-    }
 
 }

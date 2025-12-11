@@ -52,4 +52,8 @@ class FakeOutView(val promptMessages: MutableList<String>) : OutView {
         TODO("Not yet implemented")
     }
 
+    override fun restartGameDecisionPrompt() {
+        TODO("Not yet implemented")
+    }
+
 }

@@ -3,6 +3,7 @@ package com.taeyong.blackjack.controller
 import com.taeyong.blackjack.domain.dealear.Dealer
 import com.taeyong.blackjack.domain.dealear.Dealer.Companion.DEALER_STAND_SCORE
 import com.taeyong.blackjack.domain.game.Game
+import com.taeyong.blackjack.domain.game.RestartGameDecision
 import com.taeyong.blackjack.domain.player.Player
 import com.taeyong.blackjack.domain.player.PlayerDecision
 import com.taeyong.blackjack.view.InputView
@@ -19,16 +20,24 @@ class GameController(
     private val inputView: InputView
 ) {
     fun run() {
-        outView.startPrompt()
-        game.dealInitialCards(player, dealer)
-        val currentPlayerResult = participantViewMapper.from(player)
-        val currentDealerResult = participantViewMapper.initialDealerCard(dealer)
-        outView.playerCardResult(currentPlayerResult)
-        outView.dealerInitialCardResult(currentDealerResult)
-        playerTurn()
-        if (!player.isBust) {
-            dealerTurn()
-            gameResult()
+        while (true){
+            outView.startPrompt()
+            game.dealInitialCards(player, dealer)
+            val currentPlayerResult = participantViewMapper.from(player)
+            val currentDealerResult = participantViewMapper.initialDealerCard(dealer)
+            outView.playerCardResult(currentPlayerResult)
+            outView.dealerInitialCardResult(currentDealerResult)
+            playerTurn()
+            if (!player.isBust) {
+                dealerTurn()
+                gameResult()
+            }
+            outView.restartGameDecisionPrompt()
+            val userInput = inputView.readLine()
+            val restartGameDecision = RestartGameDecision.fromInput(userInput)
+            if (restartGameDecision == RestartGameDecision.END) {
+                break
+            }
         }
 
 

@@ -25,4 +25,6 @@ interface OutView {
     fun dealerTurnStartPrompt()
 
     fun dealerHitCardPrompt()
+
+    fun restartGameDecisionPrompt()
 }

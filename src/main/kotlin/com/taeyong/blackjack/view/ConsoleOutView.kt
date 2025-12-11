@@ -18,6 +18,8 @@ object ConsoleOutView : OutView {
 
     const val DEALER_HIT_NOTICE = "딜러가 카드를 한 장 더 받습니다."
 
+    const val RESTART_GAME_DECISION = "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요."
+
 
     override fun startPrompt() {
         println(START_PROMPT_MESSAGE)
@@ -67,6 +69,10 @@ object ConsoleOutView : OutView {
 
     override fun dealerHitCardPrompt() {
         println(DEALER_HIT_NOTICE)
+    }
+
+    override fun restartGameDecisionPrompt() {
+        println(RESTART_GAME_DECISION)
     }
 
 }
