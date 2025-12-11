@@ -3,6 +3,7 @@ package com.taeyong.blackjack.controller
 import com.taeyong.blackjack.domain.dealear.Dealer
 import com.taeyong.blackjack.domain.game.Game
 import com.taeyong.blackjack.domain.player.Player
+import com.taeyong.blackjack.domain.player.PlayerDecision
 import com.taeyong.blackjack.view.InputView
 import com.taeyong.blackjack.view.OutView
 import com.taeyong.blackjack.view.mapper.ParticipantViewMapper
@@ -23,7 +24,40 @@ class GameController(
         val currentDealerResult = participantViewMapper.from(dealer)
         outView.playerCardResult(currentPlayerResult)
         outView.dealerCardResult(currentDealerResult)
-        outView.receiveCardPrompt()
-        val inputs = inputView.readLine()
+        playerTurn()
+        // dealerTurn()
     }
+
+    private fun playerTurn() {
+        var playerTurn = true
+        fun receiveCard() {
+            outView.hitCardPrompt()
+            game.playPlayerTurn(player)
+            val currentPlayerResult = participantViewMapper.from(player)
+            outView.playerCardResult(currentPlayerResult)
+            if (player.isBust) {
+                playerTurn = false
+            }
+        }
+        while (true) {
+            outView.receiveCardPrompt()
+            val input = inputView.readLine()
+            val playerDecision = PlayerDecision.fromInput(input)
+
+            when (playerDecision) {
+                PlayerDecision.HIT -> receiveCard()
+                PlayerDecision.STAND -> {
+                    outView.playerEndPrompt()
+                    playerTurn = false
+                }
+            }
+            if (!playerTurn) {
+                outView.playerBustPrompt()
+                break
+            }
+
+        }
+    }
+
+
 }

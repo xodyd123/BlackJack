@@ -1,7 +1,6 @@
 package com.taeyong.blackjack.view
 
 import com.taeyong.blackjack.view.dto.ParticipantDto
-import com.taeyong.blackjack.view.OutView
 
 class FakeOutView(val promptMessages: MutableList<String>) : OutView {
 
@@ -10,6 +9,18 @@ class FakeOutView(val promptMessages: MutableList<String>) : OutView {
     }
 
     override fun receiveCardPrompt() {
+        TODO("Not yet implemented")
+    }
+
+    override fun hitCardPrompt() {
+        TODO("Not yet implemented")
+    }
+
+    override fun playerEndPrompt() {
+        TODO("Not yet implemented")
+    }
+
+    override fun playerBustPrompt() {
         TODO("Not yet implemented")
     }
 

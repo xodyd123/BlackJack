@@ -8,6 +8,12 @@ interface OutView {
 
     fun receiveCardPrompt()
 
+    fun hitCardPrompt()
+
+    fun playerEndPrompt()
+
+    fun playerBustPrompt()
+
     fun playerCardResult(participantDto: ParticipantDto)
 
     fun dealerCardResult(participantDto: ParticipantDto)
