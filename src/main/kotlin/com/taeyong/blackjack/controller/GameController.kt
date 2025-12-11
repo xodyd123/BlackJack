@@ -1,6 +1,7 @@
 package com.taeyong.blackjack.controller
 
 import com.taeyong.blackjack.domain.dealear.Dealer
+import com.taeyong.blackjack.domain.dealear.Dealer.Companion.DEALER_STAND_SCORE
 import com.taeyong.blackjack.domain.game.Game
 import com.taeyong.blackjack.domain.player.Player
 import com.taeyong.blackjack.domain.player.PlayerDecision
@@ -21,17 +22,38 @@ class GameController(
         outView.startPrompt()
         game.dealInitialCards(player, dealer)
         val currentPlayerResult = participantViewMapper.from(player)
-        val currentDealerResult = participantViewMapper.from(dealer)
+        val currentDealerResult = participantViewMapper.initialDealerCard(dealer)
         outView.playerCardResult(currentPlayerResult)
-        outView.dealerCardResult(currentDealerResult)
+        outView.dealerInitialCardResult(currentDealerResult)
         playerTurn()
-        // dealerTurn()
+        if (!player.isBust) {
+            dealerTurn()
+            gameResult()
+        }
+
+    }
+
+    private fun gameResult() {
+        val result = game.judge(player, dealer)
+        val gameResult = participantViewMapper.gameResult(result)
+        outView.showGameResult(gameResult)
+    }
+
+    private fun dealerTurn() {
+        outView.dealerTurnStartPrompt()
+        while (dealer.score < DEALER_STAND_SCORE) {
+            game.playDealerTurn(dealer)
+            val currentDealerResult = participantViewMapper.from(dealer)
+            outView.dealerHitCardPrompt()
+            outView.dealerCardResult(currentDealerResult)
+
+        }
     }
 
     private fun playerTurn() {
         var playerTurn = true
         fun receiveCard() {
-            outView.hitCardPrompt()
+            outView.playerHitCardPrompt()
             game.playPlayerTurn(player)
             val currentPlayerResult = participantViewMapper.from(player)
             outView.playerCardResult(currentPlayerResult)
@@ -52,7 +74,9 @@ class GameController(
                 }
             }
             if (!playerTurn) {
-                outView.playerBustPrompt()
+                if (player.isBust){
+                    outView.playerBustPrompt()
+                }
                 break
             }
 

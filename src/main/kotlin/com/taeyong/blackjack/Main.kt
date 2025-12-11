@@ -16,9 +16,16 @@ import com.taeyong.blackjack.view.InputView
 import com.taeyong.blackjack.view.mapper.ParticipantViewMapper
 
 fun main() {
-
-    val deck = RandomDeck()
-    val game = Game(deck)
+    val cards = listOf<Card>(
+        Card(Rank.A, Suit.CLUB),
+        Card(Rank.K, Suit.CLUB),
+        Card(Rank.NINE, Suit.SPADE), // 20
+        Card(Rank.NINE, Suit.HEART),
+        Card(Rank.TWO, Suit.CLUB),
+        Card(Rank.TWO, Suit.SPADE)
+    )
+    val deck = FakeDeck(cards)
+    val game = Game(RandomDeck())
     val scoreCalculator = ScoreCalculator()
     val gameController = GameController(
         ConsoleOutView, game,

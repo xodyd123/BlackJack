@@ -4,10 +4,11 @@ import com.taeyong.blackjack.domain.card.Card
 import com.taeyong.blackjack.domain.card.Rank
 import com.taeyong.blackjack.domain.card.Suit
 import com.taeyong.blackjack.domain.score.ScoreCalculator
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertFalse
-import kotlin.test.assertTrue
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
+
 
 class HandTest {
 

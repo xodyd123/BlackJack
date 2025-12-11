@@ -7,7 +7,7 @@ import com.taeyong.blackjack.domain.hand.Hand
 class Dealer(private val hand: Hand) {
 
     companion object {
-        private const val DEALER_STAND_SCORE = 17
+        const val DEALER_STAND_SCORE = 17
     }
 
     val size: Int

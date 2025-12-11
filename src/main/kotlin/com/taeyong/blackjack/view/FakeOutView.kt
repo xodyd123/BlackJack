@@ -12,7 +12,7 @@ class FakeOutView(val promptMessages: MutableList<String>) : OutView {
         TODO("Not yet implemented")
     }
 
-    override fun hitCardPrompt() {
+    override fun playerHitCardPrompt() {
         TODO("Not yet implemented")
     }
 
@@ -30,10 +30,26 @@ class FakeOutView(val promptMessages: MutableList<String>) : OutView {
         promptMessages.add(result)
     }
 
-    override fun dealerCardResult(participantDto: ParticipantDto) {
+    override fun dealerInitialCardResult(participantDto: ParticipantDto) {
         val cards = participantDto.cardNumbers
         var result = "딜러 카드: $cards"
         promptMessages.add(result)
+    }
+
+    override fun dealerCardResult(participantDto: ParticipantDto) {
+        TODO("Not yet implemented")
+    }
+
+    override fun showGameResult(result: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun dealerTurnStartPrompt() {
+        TODO("Not yet implemented")
+    }
+
+    override fun dealerHitCardPrompt() {
+        TODO("Not yet implemented")
     }
 
 }

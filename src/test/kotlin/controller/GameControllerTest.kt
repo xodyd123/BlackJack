@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import com.taeyong.blackjack.view.FakeOutView
 import com.taeyong.blackjack.view.InputView
 import com.taeyong.blackjack.view.mapper.ParticipantViewMapper
-import kotlin.test.Test
+import org.junit.jupiter.api.Test
 
 
 class GameControllerTest {

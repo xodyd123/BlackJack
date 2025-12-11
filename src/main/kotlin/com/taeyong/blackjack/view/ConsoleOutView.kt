@@ -14,6 +14,11 @@ object ConsoleOutView : OutView {
 
     const val PLAYER_BUST_NOTICE = "플레이어 Bust! 딜러의 승리입니다."
 
+    const val DEALER_START_NOTICE = "딜러의 턴을 시작합니다"
+
+    const val DEALER_HIT_NOTICE = "딜러가 카드를 한 장 더 받습니다."
+
+
     override fun startPrompt() {
         println(START_PROMPT_MESSAGE)
     }
@@ -22,7 +27,7 @@ object ConsoleOutView : OutView {
         println(PLAYER_HIT_PROMPT)
     }
 
-    override fun hitCardPrompt() {
+    override fun playerHitCardPrompt() {
         println(PLAYER_HIT_NOTICE)
     }
 
@@ -40,11 +45,28 @@ object ConsoleOutView : OutView {
         println(result)
     }
 
-    override fun dealerCardResult(participantDto: ParticipantDto) {
+    override fun dealerInitialCardResult(participantDto: ParticipantDto) {
         val cards = participantDto.cardNumbers
         var result = "딜러 카드: $cards"
         println(result)
     }
 
+    override fun dealerCardResult(participantDto: ParticipantDto) {
+        val cards = participantDto.cardNumbers
+        var result = "딜러 카드: $cards - 현재점수: ${participantDto.sum}"
+        println(result)
+    }
+
+    override fun showGameResult(result: String) {
+        println(result)
+    }
+
+    override fun dealerTurnStartPrompt() {
+        println(DEALER_START_NOTICE)
+    }
+
+    override fun dealerHitCardPrompt() {
+        println(DEALER_HIT_NOTICE)
+    }
 
 }

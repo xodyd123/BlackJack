@@ -4,9 +4,9 @@ import com.taeyong.blackjack.domain.card.Card
 import com.taeyong.blackjack.domain.card.Rank
 import com.taeyong.blackjack.domain.card.Suit
 import com.taeyong.blackjack.domain.score.ScoreCalculator
-import org.junit.jupiter.api.DisplayName
-import kotlin.test.Test
-import kotlin.test.assertEquals
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
+
 
 class ScoreCalculatorTest {
 
