@@ -5,25 +5,30 @@ import com.taeyong.blackjack.domain.deck.Deck
 import com.taeyong.blackjack.domain.player.Player
 
 class Game(
-    private val deck: Deck
+    private val deck: Deck,
+    private val player: Player,
+    private val dealer: Dealer,
 ) {
+    fun startRound() {
 
-    fun dealInitialCards(player: Player, dealer: Dealer) {
+    }
+
+    fun dealInitialCards() {
         repeat(2) {
             player.receive(deck.draw())
             dealer.receive(deck.draw())
         }
     }
 
-    fun playDealerTurn(dealer: Dealer) {
+    fun playDealerTurn() {
         dealer.playTurn(deck)
     }
 
-    fun playPlayerTurn(player: Player) {
+    fun playPlayerTurn() {
         player.hit(deck)
     }
 
-    fun judge(player: Player, dealer: Dealer): GameResult {
+    fun judge(): GameResult {
         return when {
             player.isBust -> GameResult(Winner.DEALER, EndReason.PLAYER_BUST)
             dealer.isBust -> GameResult(Winner.PLAYER, EndReason.DEALER_BUST)

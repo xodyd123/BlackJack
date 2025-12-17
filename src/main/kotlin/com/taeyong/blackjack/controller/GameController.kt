@@ -22,7 +22,7 @@ class GameController(
     fun run() {
         while (true){
             outView.startPrompt()
-            game.dealInitialCards(player, dealer)
+            game.dealInitialCards()
             val currentPlayerResult = participantViewMapper.from(player)
             val currentDealerResult = participantViewMapper.initialDealerCard(dealer)
             outView.playerCardResult(currentPlayerResult)
@@ -44,7 +44,7 @@ class GameController(
     }
 
     private fun gameResult() {
-        val result = game.judge(player, dealer)
+        val result = game.judge()
         val gameResult = participantViewMapper.gameResult(result)
         outView.showGameResult(gameResult)
     }
@@ -52,7 +52,7 @@ class GameController(
     private fun dealerTurn() {
         outView.dealerTurnStartPrompt()
         while (dealer.score < DEALER_STAND_SCORE) {
-            game.playDealerTurn(dealer)
+            game.playDealerTurn()
             val currentDealerResult = participantViewMapper.from(dealer)
             outView.dealerHitCardPrompt()
             outView.dealerCardResult(currentDealerResult)
@@ -64,7 +64,7 @@ class GameController(
         var playerTurn = true
         fun receiveCard() {
             outView.playerHitCardPrompt()
-            game.playPlayerTurn(player)
+            game.playPlayerTurn()
             val currentPlayerResult = participantViewMapper.from(player)
             outView.playerCardResult(currentPlayerResult)
             if (player.isBust) {
@@ -92,6 +92,5 @@ class GameController(
 
         }
     }
-
 
 }
