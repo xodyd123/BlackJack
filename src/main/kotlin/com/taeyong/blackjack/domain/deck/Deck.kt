@@ -4,6 +4,8 @@ import com.taeyong.blackjack.domain.card.Card
 
 interface Deck {
 
+    fun reset()
+
 
     fun draw(): Card
 

@@ -30,8 +30,7 @@ class GameControllerTest {
         val deck = RandomDeck()
         val game = Game(deck)
         val controller = GameController(
-            fakeOutView, game, ParticipantViewMapper(scoreCalculator), player, dealer,
-            InputView
+            fakeOutView, game, ParticipantViewMapper(scoreCalculator), InputView
         )
         controller.run()
         assertTrue { promptMessages.contains("블랙잭 게임을 시작합니다.")}
@@ -54,8 +53,7 @@ class GameControllerTest {
         )
         val game = Game(deck)
         val controller = GameController(
-            fakeOutView, game, ParticipantViewMapper(scoreCalculator), player, dealer,
-            InputView
+            fakeOutView, game, ParticipantViewMapper(scoreCalculator), InputView
         )
         controller.run()
         assertTrue(promptMessages.contains("플레이어 카드: [Q, J] - 현재점수: 20"))
@@ -78,8 +76,7 @@ class GameControllerTest {
         )
         val game = Game(deck)
         val controller = GameController(
-            fakeOutView, game, ParticipantViewMapper(scoreCalculator), player, dealer,
-            InputView
+            fakeOutView, game, ParticipantViewMapper(scoreCalculator), InputView
         )
         controller.run()
         assertTrue(promptMessages.contains("딜러 카드: [K, ?]"))

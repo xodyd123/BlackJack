@@ -43,7 +43,7 @@ object ConsoleOutView : OutView {
 
     override fun playerCardResult(participantDto: ParticipantDto) {
         val cards = participantDto.cardNumbers
-        var result = "플레이어 카드: $cards - 현재점수: ${participantDto.sum}"
+        var result = "플레이어 카드: $cards - 현재점수: ${participantDto.score}"
         println(result)
     }
 
@@ -55,7 +55,7 @@ object ConsoleOutView : OutView {
 
     override fun dealerCardResult(participantDto: ParticipantDto) {
         val cards = participantDto.cardNumbers
-        var result = "딜러 카드: $cards - 현재점수: ${participantDto.sum}"
+        var result = "딜러 카드: $cards - 현재점수: ${participantDto.score}"
         println(result)
     }
 

@@ -26,7 +26,7 @@ class FakeOutView(val promptMessages: MutableList<String>) : OutView {
 
     override fun playerCardResult(participantDto: ParticipantDto) {
         val cards = participantDto.cardNumbers
-        var result = "플레이어 카드: $cards - 현재점수: ${participantDto.sum}"
+        var result = "플레이어 카드: $cards - 현재점수: ${participantDto.score}"
         promptMessages.add(result)
     }
 
