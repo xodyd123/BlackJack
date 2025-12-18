@@ -1,6 +1,7 @@
 package com.taeyong.blackjack.view
 
-import com.taeyong.blackjack.view.dto.ParticipantDto
+import com.taeyong.blackjack.domain.snapshot.CardView
+import com.taeyong.blackjack.domain.snapshot.InitialSnapshot
 
 object ConsoleOutView : OutView {
 
@@ -41,23 +42,30 @@ object ConsoleOutView : OutView {
         println(PLAYER_BUST_NOTICE)
     }
 
-    override fun playerCardResult(participantDto: ParticipantDto) {
-        val cards = participantDto.cardNumbers
-        var result = "플레이어 카드: $cards - 현재점수: ${participantDto.score}"
-        println(result)
+    override fun printInitialRound(snapshot: InitialSnapshot) {
+        val player = snapshot.player
+        val dealer = snapshot.dealer
+
+        val playerCardsText = player.cards.joinToString(prefix = "[", postfix = "]") { cardView ->
+            when (cardView) {
+                is CardView.Face -> cardView.rank.symbol
+                CardView.Hidden -> "?"
+            }
+        }
+        val playerScoreText = player.score?.toString() ?: "?"
+        println("플레이어 카드: $playerCardsText - 현재 점수: $playerScoreText")
+
+        val dealerCardsText = dealer.cards.joinToString(prefix = "[", postfix = "]") { cardView ->
+            when (cardView){
+                is CardView.Face -> cardView.rank.symbol
+                CardView.Hidden -> "?"
+            }
+        }
+
+        val dealerScoreText = dealer.score?.toString() ?: "?"
+        println("딜러 카드: $dealerCardsText - 현재 점수: $dealerScoreText")
     }
 
-    override fun dealerInitialCardResult(participantDto: ParticipantDto) {
-        val cards = participantDto.cardNumbers
-        var result = "딜러 카드: $cards"
-        println(result)
-    }
-
-    override fun dealerCardResult(participantDto: ParticipantDto) {
-        val cards = participantDto.cardNumbers
-        var result = "딜러 카드: $cards - 현재점수: ${participantDto.score}"
-        println(result)
-    }
 
     override fun showGameResult(result: String) {
         println(result)
