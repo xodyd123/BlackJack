@@ -19,19 +19,6 @@ class GameController(
         while (true){
             outView.startPrompt()
             val startRoundResult = gameService.startRound()
-            outView.playerCardResult(currentPlayerResult)
-            outView.dealerInitialCardResult(currentDealerResult)
-            playerTurn()
-            if (!player.isBust) {
-                dealerTurn()
-                gameResult()
-            }
-            outView.restartGameDecisionPrompt()
-            val userInput = inputView.readLine()
-            val restartGameDecision = RestartGameDecision.fromInput(userInput)
-            if (restartGameDecision == RestartGameDecision.END) {
-                break
-            }
         }
 
 
