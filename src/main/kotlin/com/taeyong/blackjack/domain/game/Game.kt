@@ -4,6 +4,7 @@ import com.taeyong.blackjack.domain.dealear.Dealer
 import com.taeyong.blackjack.domain.deck.Deck
 import com.taeyong.blackjack.domain.player.Player
 import com.taeyong.blackjack.domain.snapshot.InitialSnapshot
+import com.taeyong.blackjack.domain.snapshot.ParticipantSnapshot
 
 class Game(
     private val deck: Deck,
@@ -23,19 +24,25 @@ class Game(
         return InitialSnapshot(playerSnapShot,dealerSnapShot)
     }
 
+    fun playerRoundSnapshot(): ParticipantSnapshot {
+        val playerSnapShot = player.snapShot()
+        return playerSnapShot
+    }
+
     private fun dealInitialCards() {
         repeat(2) {
             player.receive(deck.draw())
-            dealer.receive(deck.draw())
+            dealer.initialReceive(deck.draw())
         }
     }
 
-    fun playDealerTurn() {
-        dealer.playTurn(deck)
+    fun playDealerTurn(snapshots: MutableList<ParticipantSnapshot>): List<ParticipantSnapshot> {
+        return dealer.playTurn(deck, snapshots)
     }
 
-    fun playPlayerTurn() {
+    fun playPlayerTurn(): ParticipantSnapshot {
         player.hit(deck)
+        return playerRoundSnapshot()
     }
 
     fun judge(): GameResult {

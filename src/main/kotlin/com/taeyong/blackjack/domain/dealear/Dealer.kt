@@ -43,18 +43,34 @@ class Dealer(private val calculator: ScoreCalculator) {
         return ParticipantSnapshot(cardsView, null, hand.isBust)
     }
 
+    fun snapShot(): ParticipantSnapshot {
+        val cardsView = hand.cardsSnapshot.map { card -> CardView.Face(card.rank) }
+        val score = hand.score
+        val isBusted = hand.isBust
+
+        return ParticipantSnapshot(cardsView, score, isBusted)
+    }
+
     fun resetHand() {
         hand = Hand(calculator)
     }
 
-    fun receive(card: Card) {
+    fun initialReceive(card : Card) {
         hand.add(card)
     }
 
-    fun playTurn(deck: Deck) {
+    fun receive(card: Card, snapshots: MutableList<ParticipantSnapshot>) {
+        hand.add(card)
+        val snapShot = snapShot()
+        snapshots.add(snapShot)
+    }
+
+    fun playTurn(deck: Deck, snapshot: MutableList<ParticipantSnapshot>): List<ParticipantSnapshot> {
+        snapshot.add(snapShot())
         while (shouldHit) {
-            receive(deck.draw())
+            receive(deck.draw(), snapshot)
         }
+        return snapshot
     }
 
 }

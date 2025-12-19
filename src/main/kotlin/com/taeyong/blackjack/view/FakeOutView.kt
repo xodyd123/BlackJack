@@ -1,6 +1,8 @@
 package com.taeyong.blackjack.view
 
+import com.taeyong.blackjack.domain.game.GameResult
 import com.taeyong.blackjack.domain.snapshot.InitialSnapshot
+import com.taeyong.blackjack.domain.snapshot.ParticipantSnapshot
 
 class FakeOutView(val promptMessages: MutableList<String>) : OutView {
 
@@ -29,7 +31,11 @@ class FakeOutView(val promptMessages: MutableList<String>) : OutView {
     }
 
 
-    override fun showGameResult(result: String) {
+    override fun showGameResult(result: GameResult) {
+        TODO("Not yet implemented")
+    }
+
+    override fun printPlayerRound(snapshot: ParticipantSnapshot) {
         TODO("Not yet implemented")
     }
 
@@ -42,6 +48,14 @@ class FakeOutView(val promptMessages: MutableList<String>) : OutView {
     }
 
     override fun restartGameDecisionPrompt() {
+        TODO("Not yet implemented")
+    }
+
+    override fun printDealerRound(snapshot: ParticipantSnapshot) {
+        TODO("Not yet implemented")
+    }
+
+    override fun dealerTurnResult(snapshots: List<ParticipantSnapshot>) {
         TODO("Not yet implemented")
     }
 

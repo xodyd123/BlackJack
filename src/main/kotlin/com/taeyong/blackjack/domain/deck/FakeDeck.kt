@@ -13,7 +13,8 @@ class FakeDeck(
         private set
 
     override fun reset() {
-        TODO("Not yet implemented")
+        //cards.clear()
+        return
     }
 
     override fun draw(): Card {

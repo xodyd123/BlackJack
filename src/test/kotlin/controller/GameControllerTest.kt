@@ -8,13 +8,12 @@ import com.taeyong.blackjack.domain.dealear.Dealer
 import com.taeyong.blackjack.domain.deck.FakeDeck
 import com.taeyong.blackjack.domain.deck.RandomDeck
 import com.taeyong.blackjack.domain.game.Game
-import com.taeyong.blackjack.domain.hand.Hand
 import com.taeyong.blackjack.domain.player.Player
 import com.taeyong.blackjack.domain.score.ScoreCalculator
+import com.taeyong.blackjack.service.GameService
 import org.junit.jupiter.api.Assertions.assertTrue
 import com.taeyong.blackjack.view.FakeOutView
 import com.taeyong.blackjack.view.InputView
-import com.taeyong.blackjack.view.mapper.ParticipantViewMapper
 import org.junit.jupiter.api.Test
 
 
@@ -25,13 +24,12 @@ class GameControllerTest {
         val promptMessages = mutableListOf<String>()
         val fakeOutView = FakeOutView(promptMessages)
         val scoreCalculator = ScoreCalculator()
-        val player = Player(Hand(scoreCalculator))
-        val dealer = Dealer(Hand(scoreCalculator))
+        val player = Player(scoreCalculator)
+        val dealer = Dealer(scoreCalculator)
         val deck = RandomDeck()
-        val game = Game(deck)
+        val game = Game(deck, player, dealer)
         val controller = GameController(
-            fakeOutView, game, ParticipantViewMapper(scoreCalculator), InputView
-        )
+            fakeOutView, GameService(game), InputView)
         controller.run()
         assertTrue { promptMessages.contains("블랙잭 게임을 시작합니다.")}
     }
@@ -41,8 +39,8 @@ class GameControllerTest {
         val promptMessages = mutableListOf<String>()
         val fakeOutView = FakeOutView(promptMessages)
         val scoreCalculator = ScoreCalculator()
-        val player = Player(Hand(scoreCalculator))
-        val dealer = Dealer(Hand(scoreCalculator))
+        val player = Player(scoreCalculator)
+        val dealer = Dealer(scoreCalculator)
         val deck = FakeDeck(
             listOf(
                 Card(Rank.Q, Suit.HEART),
@@ -51,10 +49,9 @@ class GameControllerTest {
                 Card(Rank.Q, Suit.SPADE)
             )
         )
-        val game = Game(deck)
+        val game = Game(deck, player, dealer)
         val controller = GameController(
-            fakeOutView, game, ParticipantViewMapper(scoreCalculator), InputView
-        )
+            fakeOutView, GameService(game), InputView)
         controller.run()
         assertTrue(promptMessages.contains("플레이어 카드: [Q, J] - 현재점수: 20"))
     }
@@ -64,8 +61,8 @@ class GameControllerTest {
         val promptMessages = mutableListOf<String>()
         val fakeOutView = FakeOutView(promptMessages)
         val scoreCalculator = ScoreCalculator()
-        val player = Player(Hand(scoreCalculator))
-        val dealer = Dealer(Hand(scoreCalculator))
+        val player = Player(scoreCalculator)
+        val dealer = Dealer(scoreCalculator)
         val deck = FakeDeck(
             listOf(
                 Card(Rank.Q, Suit.HEART),
@@ -74,10 +71,9 @@ class GameControllerTest {
                 Card(Rank.Q, Suit.SPADE)
             )
         )
-        val game = Game(deck)
+        val game = Game(deck, player, dealer)
         val controller = GameController(
-            fakeOutView, game, ParticipantViewMapper(scoreCalculator), InputView
-        )
+            fakeOutView, GameService(game), InputView)
         controller.run()
         assertTrue(promptMessages.contains("딜러 카드: [K, ?]"))
     }
