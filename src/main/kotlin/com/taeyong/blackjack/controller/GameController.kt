@@ -2,6 +2,7 @@ package com.taeyong.blackjack.controller
 
 import com.taeyong.blackjack.domain.game.RestartGameDecision
 import com.taeyong.blackjack.domain.player.PlayerDecision
+import com.taeyong.blackjack.domain.player.PlayerTurnResult
 import com.taeyong.blackjack.service.GameService
 import com.taeyong.blackjack.view.InputView
 import com.taeyong.blackjack.view.OutView
@@ -16,12 +17,17 @@ class GameController(
             outView.startPrompt()
             val startRoundResult = gameService.startRound()
             outView.printInitialRound(startRoundResult)
+            when (playingPlayerTurn()) {
+                PlayerTurnResult.STAND -> {
+                    playingDealerTurn()
+                    val judgeWinner = gameService.judgeWinner()
+                    outView.showGameResult(judgeWinner)
+                }
 
-            if (!playingPlayerTurn()) {
-                playingDealerTurn()
-                val judgeWinner = gameService.judgeWinner()
-                outView.showGameResult(judgeWinner)
-
+                PlayerTurnResult.BUST -> {
+                    val judgeWinner = gameService.judgeWinner()
+                    outView.showGameResult(judgeWinner)
+                }
             }
             outView.restartGameDecisionPrompt()
             val decision = RestartGameDecision.fromInput(inputView.readLine())
@@ -29,7 +35,7 @@ class GameController(
         }
     }
 
-    private fun playingPlayerTurn(): Boolean {
+    private fun playingPlayerTurn(): PlayerTurnResult {
         while (true) {
             outView.receiveCardPrompt()
             val input = inputView.readLine()
@@ -41,12 +47,12 @@ class GameController(
                     outView.printPlayerRound(playerGameRoundResult)
                     if (playerGameRoundResult.isBust) {
                         outView.playerBustPrompt()
-                        return true
+                        return PlayerTurnResult.BUST
                     }
                 }
 
                 PlayerDecision.STAND -> {
-                    return false
+                    return PlayerTurnResult.STAND
                 }
             }
         }
