@@ -5,6 +5,7 @@ import com.taeyong.blackjack.domain.snapshot.InitialSnapshot
 import com.taeyong.blackjack.domain.snapshot.ParticipantSnapshot
 
 
+
 interface OutView {
 
     fun startPrompt()
@@ -31,5 +32,5 @@ interface OutView {
 
     fun printDealerRound(snapshot: ParticipantSnapshot)
 
-    fun dealerTurnResult(snapshots: List<ParticipantSnapshot>)
+    fun dealerTurnResult(snapshots: List<ParticipantSnapshot>, result: GameResult)
 }

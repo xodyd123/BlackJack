@@ -55,7 +55,7 @@ class FakeOutView(val promptMessages: MutableList<String>) : OutView {
         TODO("Not yet implemented")
     }
 
-    override fun dealerTurnResult(snapshots: List<ParticipantSnapshot>) {
+    override fun dealerTurnResult(snapshots: List<ParticipantSnapshot>, result: GameResult) {
         TODO("Not yet implemented")
     }
 

@@ -65,6 +65,8 @@ object ConsoleOutView : OutView {
     }
 
     override fun printPlayerRound(player: ParticipantSnapshot) {
+        playerHitCardPrompt()
+
         val playerCardsText = player.cards.joinToString(prefix = "[", postfix = "]") { cardView ->
             when (cardView) {
                 is CardView.Face -> cardView.rank.symbol
@@ -73,6 +75,9 @@ object ConsoleOutView : OutView {
         }
         val playerScoreText = player.score?.toString() ?: "?"
         println("플레이어 카드: $playerCardsText - 현재 점수: $playerScoreText")
+        if(player.isBust) {
+            playerBustPrompt()
+        }
     }
 
 
@@ -113,10 +118,16 @@ object ConsoleOutView : OutView {
         println("딜러 카드: $playerCardsText - 현재 점수: $playerScoreText")
     }
 
-    override fun dealerTurnResult(snapshots: List<ParticipantSnapshot>) {
-        snapshots.forEach { snapshot ->
+    override fun dealerTurnResult(snapshots: List<ParticipantSnapshot>, result: GameResult) {
+        dealerTurnStartPrompt()
+
+        snapshots.forEach{ snapshot ->
             printDealerRound(snapshot)
+
         }
+
+        showGameResult(result)
+
     }
 
 }

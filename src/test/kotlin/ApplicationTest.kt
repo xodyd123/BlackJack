@@ -46,7 +46,7 @@ class ApplicationTest : NsTest() {
                 Card(Rank.TWO, Suit.SPADE)
             ))
         assertSimpleTest {
-            run("y", "2")
+            run("y" ,"2")
             assertThat(output()).contains(
                 "블랙잭 게임을 시작합니다.",
                 "플레이어 카드: [K, Q] - 현재 점수: 20",
