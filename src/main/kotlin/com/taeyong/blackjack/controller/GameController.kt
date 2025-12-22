@@ -1,97 +1,44 @@
 package com.taeyong.blackjack.controller
 
-import com.taeyong.blackjack.domain.dealear.Dealer
-import com.taeyong.blackjack.domain.dealear.Dealer.Companion.DEALER_STAND_SCORE
-import com.taeyong.blackjack.domain.game.Game
 import com.taeyong.blackjack.domain.game.RestartGameDecision
-import com.taeyong.blackjack.domain.player.Player
-import com.taeyong.blackjack.domain.player.PlayerDecision
+import com.taeyong.blackjack.service.GameService
+import com.taeyong.blackjack.service.StepResult
 import com.taeyong.blackjack.view.InputView
 import com.taeyong.blackjack.view.OutView
-import com.taeyong.blackjack.view.mapper.ParticipantViewMapper
-
 
 class GameController(
     private val outView: OutView,
-    private val game: Game,
-    private val participantViewMapper: ParticipantViewMapper,
-    private val player: Player,
-    private val dealer: Dealer,
+    private val gameService: GameService,
     private val inputView: InputView
 ) {
     fun run() {
-        while (true){
-            outView.startPrompt()
-            game.dealInitialCards(player, dealer)
-            val currentPlayerResult = participantViewMapper.from(player)
-            val currentDealerResult = participantViewMapper.initialDealerCard(dealer)
-            outView.playerCardResult(currentPlayerResult)
-            outView.dealerInitialCardResult(currentDealerResult)
-            playerTurn()
-            if (!player.isBust) {
-                dealerTurn()
-                gameResult()
-            }
-            outView.restartGameDecisionPrompt()
-            val userInput = inputView.readLine()
-            val restartGameDecision = RestartGameDecision.fromInput(userInput)
-            if (restartGameDecision == RestartGameDecision.END) {
-                break
-            }
-        }
-
-
-    }
-
-    private fun gameResult() {
-        val result = game.judge(player, dealer)
-        val gameResult = participantViewMapper.gameResult(result)
-        outView.showGameResult(gameResult)
-    }
-
-    private fun dealerTurn() {
-        outView.dealerTurnStartPrompt()
-        while (dealer.score < DEALER_STAND_SCORE) {
-            game.playDealerTurn(dealer)
-            val currentDealerResult = participantViewMapper.from(dealer)
-            outView.dealerHitCardPrompt()
-            outView.dealerCardResult(currentDealerResult)
-
-        }
-    }
-
-    private fun playerTurn() {
-        var playerTurn = true
-        fun receiveCard() {
-            outView.playerHitCardPrompt()
-            game.playPlayerTurn(player)
-            val currentPlayerResult = participantViewMapper.from(player)
-            outView.playerCardResult(currentPlayerResult)
-            if (player.isBust) {
-                playerTurn = false
-            }
-        }
         while (true) {
-            outView.receiveCardPrompt()
-            val input = inputView.readLine()
-            val playerDecision = PlayerDecision.fromInput(input)
+            outView.startPrompt()
+            val startRoundResult = gameService.startRound()
+            outView.printInitialRound(startRoundResult)
 
-            when (playerDecision) {
-                PlayerDecision.HIT -> receiveCard()
-                PlayerDecision.STAND -> {
-                    outView.playerEndPrompt()
-                    playerTurn = false
+            while (true) {
+                outView.receiveCardPrompt()
+                val input = inputView.readLine()
+
+                when (val step = gameService.nextStep(input)) {
+                    is StepResult.PlayerUpdated -> outView.printPlayerRound(step.player)
+                    is StepResult.DealerUpdated -> {
+                        outView.dealerTurnResult(step.dealer, step.result)
+                        break
+                    }
+
+                    is StepResult.RoundEnded -> {
+                        outView.printPlayerRound(step.player)
+                        break
+                    }
                 }
             }
-            if (!playerTurn) {
-                if (player.isBust){
-                    outView.playerBustPrompt()
-                }
-                break
-            }
 
+            outView.restartGameDecisionPrompt()
+            val decision = RestartGameDecision.fromInput(inputView.readLine())
+            if (decision == RestartGameDecision.END) break
         }
     }
-
 
 }

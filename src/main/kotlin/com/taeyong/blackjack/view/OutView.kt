@@ -1,6 +1,10 @@
 package com.taeyong.blackjack.view
 
-import com.taeyong.blackjack.view.dto.ParticipantDto
+import com.taeyong.blackjack.domain.game.GameResult
+import com.taeyong.blackjack.domain.snapshot.InitialSnapshot
+import com.taeyong.blackjack.domain.snapshot.ParticipantSnapshot
+
+
 
 interface OutView {
 
@@ -14,17 +18,19 @@ interface OutView {
 
     fun playerBustPrompt()
 
-    fun playerCardResult(participantDto: ParticipantDto)
+    fun printInitialRound(snapshot: InitialSnapshot)
 
-    fun dealerInitialCardResult(participantDto: ParticipantDto)
+    fun showGameResult(result: GameResult)
 
-    fun dealerCardResult(participantDto: ParticipantDto)
-
-    fun showGameResult(result : String)
+    fun printPlayerRound(snapshot: ParticipantSnapshot)
 
     fun dealerTurnStartPrompt()
 
     fun dealerHitCardPrompt()
 
     fun restartGameDecisionPrompt()
+
+    fun printDealerRound(snapshot: ParticipantSnapshot)
+
+    fun dealerTurnResult(snapshots: List<ParticipantSnapshot>, result: GameResult)
 }

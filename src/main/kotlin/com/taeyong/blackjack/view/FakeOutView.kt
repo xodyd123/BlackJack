@@ -1,6 +1,8 @@
 package com.taeyong.blackjack.view
 
-import com.taeyong.blackjack.view.dto.ParticipantDto
+import com.taeyong.blackjack.domain.game.GameResult
+import com.taeyong.blackjack.domain.snapshot.InitialSnapshot
+import com.taeyong.blackjack.domain.snapshot.ParticipantSnapshot
 
 class FakeOutView(val promptMessages: MutableList<String>) : OutView {
 
@@ -24,23 +26,16 @@ class FakeOutView(val promptMessages: MutableList<String>) : OutView {
         TODO("Not yet implemented")
     }
 
-    override fun playerCardResult(participantDto: ParticipantDto) {
-        val cards = participantDto.cardNumbers
-        var result = "플레이어 카드: $cards - 현재점수: ${participantDto.sum}"
-        promptMessages.add(result)
-    }
-
-    override fun dealerInitialCardResult(participantDto: ParticipantDto) {
-        val cards = participantDto.cardNumbers
-        var result = "딜러 카드: $cards"
-        promptMessages.add(result)
-    }
-
-    override fun dealerCardResult(participantDto: ParticipantDto) {
+    override fun printInitialRound(snapshot: InitialSnapshot) {
         TODO("Not yet implemented")
     }
 
-    override fun showGameResult(result: String) {
+
+    override fun showGameResult(result: GameResult) {
+        TODO("Not yet implemented")
+    }
+
+    override fun printPlayerRound(snapshot: ParticipantSnapshot) {
         TODO("Not yet implemented")
     }
 
@@ -53,6 +48,14 @@ class FakeOutView(val promptMessages: MutableList<String>) : OutView {
     }
 
     override fun restartGameDecisionPrompt() {
+        TODO("Not yet implemented")
+    }
+
+    override fun printDealerRound(snapshot: ParticipantSnapshot) {
+        TODO("Not yet implemented")
+    }
+
+    override fun dealerTurnResult(snapshots: List<ParticipantSnapshot>, result: GameResult) {
         TODO("Not yet implemented")
     }
 

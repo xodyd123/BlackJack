@@ -3,8 +3,13 @@ package com.taeyong.blackjack.domain.dealear
 import com.taeyong.blackjack.domain.card.Card
 import com.taeyong.blackjack.domain.deck.Deck
 import com.taeyong.blackjack.domain.hand.Hand
+import com.taeyong.blackjack.domain.score.ScoreCalculator
+import com.taeyong.blackjack.domain.snapshot.CardView
+import com.taeyong.blackjack.domain.snapshot.ParticipantSnapshot
 
-class Dealer(private val hand: Hand) {
+class Dealer(private val calculator: ScoreCalculator) {
+
+    private var hand = Hand(calculator)
 
     companion object {
         const val DEALER_STAND_SCORE = 17
@@ -25,14 +30,47 @@ class Dealer(private val hand: Hand) {
     val cards: List<Card>
         get() = hand.cardsSnapshot
 
-    fun receive(card: Card) {
+    fun initialSnapshotHiddenScore(): ParticipantSnapshot {
+        val cards = hand.cardsSnapshot
+        val lastIndex = cards.lastIndex
+
+        val cardsView = hand.cardsSnapshot.mapIndexed { index: Int, card: Card ->
+            when (index) {
+                lastIndex -> CardView.Hidden
+                else -> CardView.Face(card.rank)
+            }
+        }
+        return ParticipantSnapshot(cardsView, null, hand.isBust)
+    }
+
+    fun snapShot(): ParticipantSnapshot {
+        val cardsView = hand.cardsSnapshot.map { card -> CardView.Face(card.rank) }
+        val score = hand.score
+        val isBusted = hand.isBust
+
+        return ParticipantSnapshot(cardsView, score, isBusted)
+    }
+
+    fun resetHand() {
+        hand = Hand(calculator)
+    }
+
+    fun initialReceive(card : Card) {
         hand.add(card)
     }
 
-    fun playTurn(deck: Deck) {
+    fun receive(card: Card, snapshots: MutableList<ParticipantSnapshot>) {
+        hand.add(card)
+        val snapShot = snapShot()
+        snapshots.add(snapShot)
+    }
+
+    fun playTurn(deck: Deck, snapshot: MutableList<ParticipantSnapshot>): List<ParticipantSnapshot> {
+        snapshot.add(snapShot())
         while (shouldHit) {
-            receive(deck.draw())
+            receive(deck.draw(), snapshot)
         }
+        return snapshot
     }
 
 }

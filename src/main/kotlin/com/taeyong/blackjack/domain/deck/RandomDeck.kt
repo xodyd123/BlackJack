@@ -6,7 +6,7 @@ import com.taeyong.blackjack.domain.card.Suit
 
 class RandomDeck() : Deck {
 
-    private var cards = mutableListOf<Card>()
+    private val cards = mutableListOf<Card>()
 
     init {
         initializeCards()
@@ -28,6 +28,11 @@ class RandomDeck() : Deck {
         cards.shuffle()
 
 
+    }
+
+    override fun reset() {
+        cards.clear()
+        initializeCards()
     }
 
     override fun draw(): Card {
